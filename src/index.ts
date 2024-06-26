@@ -1,2 +1,2 @@
-export { QuantumGameServer } from "./socket-server";
-export { buildSocketServer } from "./build-socket-server";
+export { QuantumGameServer } from "./game-server";
+export { buildQuantumGameServer } from "./build-game-server";
