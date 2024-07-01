@@ -30,4 +30,3 @@ export function isSystemEvent(value: string): value is SystemEvent {
 export function isEvent(value: string): value is Event {
   return Object.values(Events).includes(value as Event);
 }
-
