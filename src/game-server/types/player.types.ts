@@ -1,4 +1,4 @@
 export type PlayerData = {
   id: string;
-  name: string;
+  data: any;
 };
