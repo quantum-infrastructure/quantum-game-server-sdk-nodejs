@@ -71,8 +71,8 @@ export const getGameLoop = <
 
         const gameInstance: GameInstance<T, M> = {
           id: instance.id,
-          updated: parseInt(instance.updated),
-          state: JSON.parse(instance.state) as T,
+          updated: parseInt(instance.updated) || 0,
+          state: JSON.parse(instance.state || "{}") as T,
           players: JSON.parse(instance.players || "[]") as PlayerData[],
           messages: messageArray.map(message => {
             return JSON.parse(message) as M;
@@ -91,19 +91,12 @@ export const getGameLoop = <
           state: JSON.stringify(newState),
           updated: updatedTimestamp,
         });
-
-        if (messageArray.length) {
-          //console.log("NEW STATE", newState, entryId);
-          const instance2 = await redisClient.hGetAll(entryId);
-          // console.log(instance2);
-        }
         
         await redisClient.zAdd(getUpdatedGameInstancesKey(), {
           score: updatedTimestamp,
           value: entryId,
         });
-
-        // Recursively call the function to process the next entry
+        
         gameLoop();
       } else {
         // No entries to process, wait for 1ms and try again

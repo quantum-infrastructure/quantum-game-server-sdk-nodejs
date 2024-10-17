@@ -51,7 +51,7 @@ export class QuantumGameServer {
         JSON.stringify(payload)
       );
     } else {
-      throw Error("Socket Connection Closed");
+      throw Error("Redis Connection Closed");
     }
   }
 

@@ -1,6 +1,6 @@
 {
-  "name": "quantum-game-server-sdk",
-  "version": "1.0.0",
+  "name": "@zambara-studio/quantum-game-server-sdk-nodejs",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
