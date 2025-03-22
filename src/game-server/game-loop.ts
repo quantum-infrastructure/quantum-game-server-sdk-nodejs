@@ -32,7 +32,7 @@ type GameLoopProps<
   T extends object = any,
   M extends BaseMessage<any> = BaseMessage<any>
 > = {
-  loopRate: number;
+  tickRate: number;
   redisClient: RedisClientType;
   quantumGameServer: QuantumGameServer;
   tick: TickType<T, M>;
@@ -42,21 +42,21 @@ export const getGameLoop = <
   T extends object,
   M extends BaseMessage<any> = BaseMessage<any>
 >({
-  loopRate,
+  tickRate,
   redisClient,
   tick,
   quantumGameServer,
 }: GameLoopProps<T, M>) => {
   async function gameLoop() {
+    
     try {
       const id = await redisClient.eval(luaScript, {
         keys: [getUpdatedGameInstancesKey()],
-        arguments: [loopRate.toString()],
+        arguments: [(1000 / tickRate).toString()],
       });
-
       if (id) {
         const entryId = id as string; // Cast the result to a string (entry ID)
-
+        console.log(entryId)
         const messageArray = await redisClient.lRange(
           getGameInstanceMessagesKeyWithRedisGameInstanceKey(entryId),
           0,

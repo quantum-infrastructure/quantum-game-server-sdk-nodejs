@@ -7,7 +7,7 @@ type BuildQuantumGameServerProps = Omit<
   Pick<QuantumGameServerProps, "tick">;
 
 export const buildQuantumGameServer = ({
-  loopRate,
+  tickRate,
   tick,
   redis,
 }: BuildQuantumGameServerProps) => {
@@ -18,10 +18,10 @@ export const buildQuantumGameServer = ({
   const _redisPort = redis
     ? redis.redisPort
     : (process.env.REDIS_PORT as unknown as number);
-  const _loopRate = loopRate || (process.env.LOOP_RATE as unknown as number) || 30;
+  const _tickRate = tickRate || (process.env.LOOP_RATE as unknown as number) || 30;
 
   return new QuantumGameServer({
-    loopRate: _loopRate,
+    tickRate: _tickRate,
     redis: {
       redisHost: _redisHost,
       redisPort: _redisPort,

@@ -18,7 +18,7 @@ export type GameInstance<S extends object, M extends BaseMessage<any>> = {
 };
 
 export type QuantumGameServerProps = {
-  loopRate: number;
+  tickRate: number;
   redis: {
     redisPort: number;
     redisHost: string;
@@ -83,9 +83,9 @@ export class QuantumGameServer {
 
   async start() {
     await this.redisClient.connect();
-
+    console.log(this.config.tickRate)
     const gameLoop = getGameLoop({
-      loopRate: this.config.loopRate,
+      tickRate: this.config.tickRate,
       redisClient: this.redisClient,
       tick: this.config.tick,
       quantumGameServer: this,
